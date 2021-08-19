@@ -68,6 +68,20 @@ public class Driver {
                         driverPool.get().manage().window().maximize();
                         driverPool.get().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
                         break;
+                    case "remote-chromeSSL":
+                        WebDriverManager.chromedriver().setup();
+                        ChromeOptions remoteCapability = new ChromeOptions();
+                        remoteCapability.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+                        remoteCapability.setCapability(CapabilityType.ACCEPT_INSECURE_CERTS, true);
+                        remoteCapability.setCapability("platform",Platform.ANY);
+                        try{
+                            driverPool.set(new RemoteWebDriver(new URL("http://"+ ConfigurationReader.getProperty("myIPAddress") +":4444/wd/hub"),remoteCapability));
+                        } catch (MalformedURLException e){
+                            e.printStackTrace();
+                        }
+                        driverPool.get().manage().window().maximize();
+                        driverPool.get().manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
+                        break;
 
                 }
             }
