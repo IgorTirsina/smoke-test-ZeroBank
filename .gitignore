@@ -1,3 +1,5 @@
 /target/
 /zerobank-automationB22.iml
 /.idea/
+*.iml
+*.properties
